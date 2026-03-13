@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Calendar, Dumbbell, ChevronDown, ChevronUp } from "lucide-react";
 import Layout from "@/components/Layout";
 import { workoutPrograms } from "@/data/exercises";
+import programsHero from "@/assets/programs-hero.jpg";
 
 const levelColor: Record<string, string> = {
   Beginner: "bg-green-900/30 text-green-400 border-green-800",
@@ -14,12 +15,19 @@ const ProgramsPage = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-12">
-        <div className="mb-8">
-          <h1 className="mb-2 font-display text-4xl font-bold text-foreground">Workout Programs</h1>
-          <p className="text-muted-foreground">Structured training plans for every fitness level</p>
+      {/* Hero */}
+      <div className="relative h-48 overflow-hidden md:h-64">
+        <img src={programsHero} alt="Workout planning" className="h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-6">
+          <div className="container mx-auto">
+            <h1 className="font-display text-4xl font-bold text-foreground">Workout Programs</h1>
+            <p className="text-muted-foreground">Structured training plans for every fitness level</p>
+          </div>
         </div>
+      </div>
 
+      <div className="container mx-auto px-4 py-12">
         <div className="space-y-6">
           {workoutPrograms.map((program) => (
             <div key={program.id} className="rounded-lg border border-border bg-card overflow-hidden">

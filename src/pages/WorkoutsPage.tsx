@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Search, Filter } from "lucide-react";
 import Layout from "@/components/Layout";
 import { exercises } from "@/data/exercises";
+import { exerciseImages } from "@/data/exerciseImages";
 
 const allMuscleGroups = ["All", ...Array.from(new Set(exercises.map((e) => e.muscleGroup)))];
 const allDifficulties = ["All", "Beginner", "Intermediate", "Advanced"];
@@ -85,25 +86,38 @@ const WorkoutsPage = () => {
             <Link
               key={exercise.id}
               to={`/exercise/${exercise.id}`}
-              className="group rounded-lg border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-glow"
+              className="group overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/50 hover:shadow-glow"
             >
-              <div className="mb-3 flex items-center justify-between">
-                <span className="rounded bg-secondary px-2 py-1 font-display text-xs font-medium uppercase text-muted-foreground">
-                  {exercise.muscleGroup}
-                </span>
-                <span className={`rounded px-2 py-1 text-xs font-medium ${difficultyColor[exercise.difficulty]}`}>
-                  {exercise.difficulty}
-                </span>
+              {/* Exercise Image */}
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={exerciseImages[exercise.id]}
+                  alt={exercise.name}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                  <span className="rounded bg-background/80 px-2 py-1 font-display text-xs font-medium uppercase text-muted-foreground backdrop-blur-sm">
+                    {exercise.muscleGroup}
+                  </span>
+                  <span className={`rounded px-2 py-1 text-xs font-medium backdrop-blur-sm ${difficultyColor[exercise.difficulty]}`}>
+                    {exercise.difficulty}
+                  </span>
+                </div>
               </div>
-              <h3 className="mb-2 font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                {exercise.name}
-              </h3>
-              <p className="mb-3 text-sm text-muted-foreground">
-                Primary: {exercise.primaryMuscle}
-              </p>
-              <div className="flex items-center justify-between text-xs text-muted-foreground">
-                <span>{exercise.equipment}</span>
-                <span>{exercise.sets} × {exercise.reps}</span>
+
+              <div className="p-4">
+                <h3 className="mb-2 font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                  {exercise.name}
+                </h3>
+                <p className="mb-3 text-sm text-muted-foreground">
+                  Primary: {exercise.primaryMuscle}
+                </p>
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                  <span>{exercise.equipment}</span>
+                  <span>{exercise.sets} × {exercise.reps}</span>
+                </div>
               </div>
             </Link>
           ))}
