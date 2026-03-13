@@ -1,5 +1,6 @@
 import { Utensils, Apple, Beef, Egg, Wheat, Flame, Droplets } from "lucide-react";
 import Layout from "@/components/Layout";
+import dietHero from "@/assets/diet-hero.jpg";
 
 const mealPlan = [
   { meal: "Breakfast (7 AM)", items: ["4 egg whites + 1 whole egg omelette", "Oats with banana", "Black coffee or green tea"] },
@@ -22,12 +23,19 @@ const muscleGainFoods = [
 const DietPage = () => {
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-12">
-        <div className="mb-8">
-          <h1 className="mb-2 font-display text-4xl font-bold text-foreground">Diet & Nutrition</h1>
-          <p className="text-muted-foreground">Fuel your training with the right nutrition</p>
+      {/* Hero */}
+      <div className="relative h-48 overflow-hidden md:h-64">
+        <img src={dietHero} alt="Healthy meal prep" className="h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-6">
+          <div className="container mx-auto">
+            <h1 className="font-display text-4xl font-bold text-foreground">Diet & Nutrition</h1>
+            <p className="text-muted-foreground">Fuel your training with the right nutrition</p>
+          </div>
         </div>
+      </div>
 
+      <div className="container mx-auto px-4 py-12">
         {/* Muscle Gain Section */}
         <section className="mb-12">
           <h2 className="mb-6 flex items-center gap-2 font-display text-2xl font-bold text-foreground">

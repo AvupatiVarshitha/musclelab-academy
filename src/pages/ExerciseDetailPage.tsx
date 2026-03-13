@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Target, Clock, AlertTriangle, Lightbulb, Repeat, Dumbbell } from "lucide-react";
 import Layout from "@/components/Layout";
 import { exercises } from "@/data/exercises";
+import { exerciseImages } from "@/data/exerciseImages";
 
 const ExerciseDetailPage = () => {
   const { id } = useParams();
@@ -22,26 +23,38 @@ const ExerciseDetailPage = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-12">
-        <Link to="/workouts" className="mb-6 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary">
-          <ArrowLeft className="h-4 w-4" /> Back to Exercises
-        </Link>
-
-        <div className="grid gap-8 lg:grid-cols-3">
-          {/* Main content */}
-          <div className="lg:col-span-2">
-            <div className="mb-2 flex flex-wrap gap-2">
-              <span className="rounded bg-secondary px-3 py-1 font-display text-xs font-medium uppercase text-muted-foreground">
+      {/* Hero Image */}
+      <div className="relative h-64 overflow-hidden md:h-80">
+        <img
+          src={exerciseImages[exercise.id]}
+          alt={exercise.name}
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-6">
+          <div className="container mx-auto">
+            <Link to="/workouts" className="mb-3 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary">
+              <ArrowLeft className="h-4 w-4" /> Back to Exercises
+            </Link>
+            <div className="flex flex-wrap gap-2 mb-2">
+              <span className="rounded bg-secondary/80 px-3 py-1 font-display text-xs font-medium uppercase text-muted-foreground backdrop-blur-sm">
                 {exercise.muscleGroup}
               </span>
-              <span className="rounded bg-primary/20 px-3 py-1 font-display text-xs font-medium uppercase text-primary">
+              <span className="rounded bg-primary/20 px-3 py-1 font-display text-xs font-medium uppercase text-primary backdrop-blur-sm">
                 {exercise.difficulty}
               </span>
             </div>
-            <h1 className="mb-6 font-display text-4xl font-bold text-foreground md:text-5xl">
+            <h1 className="font-display text-4xl font-bold text-foreground md:text-5xl">
               {exercise.name}
             </h1>
+          </div>
+        </div>
+      </div>
 
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid gap-8 lg:grid-cols-3">
+          {/* Main content */}
+          <div className="lg:col-span-2">
             {/* Instructions */}
             <div className="mb-8 rounded-lg border border-border bg-card p-6">
               <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-semibold text-foreground">
@@ -151,9 +164,10 @@ const ExerciseDetailPage = () => {
                     <Link
                       key={e.id}
                       to={`/exercise/${e.id}`}
-                      className="block text-sm text-muted-foreground hover:text-primary"
+                      className="flex items-center gap-3 rounded-md p-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-primary"
                     >
-                      → {e.name}
+                      <img src={exerciseImages[e.id]} alt={e.name} className="h-10 w-10 rounded object-cover" />
+                      <span>{e.name}</span>
                     </Link>
                   ))}
               </div>
